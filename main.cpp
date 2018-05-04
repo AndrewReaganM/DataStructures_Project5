@@ -12,13 +12,13 @@ int main() {
     int** A;
     int** B;
     int X[] = {1000,2000,3000,4000,5000,6000,7000,8000,9000,100000};
-    cpu_time_used = 0;
+    cpu_time_used = 0; //Tracks the time used in ticks.
 
 
-    A = new int*[30];
-    B = new int*[30];
+    A = new int*[30]; //Test array main
+    B = new int*[30]; //Test array slave
     for (int i = 0; i < 30; ++i) { //Create random numbers
-        A[i] = new int(random());
+        A[i] = new int(random()); //Create 30 random numbers
     }
     for (int i = 0; i < 30; ++i) { //Copy over
         B[i] = new int(*A[i]);
@@ -65,23 +65,25 @@ int main() {
     cout << endl;
     delete [] A;
 
+//////////////////////////// Main Timing /////////////////////////////
+
     for(int k=0; k< 10; k++)
     {
-        A = new int*[X[k]];
-        B = new int*[X[k]];
+        A = new int*[X[k]]; //Create master array
+        B = new int*[X[k]]; //Create slave array
 
         for(int q = 0; q<10; q++)
         {
             for (int i = 0; i < X[k]; ++i) { //Create random numbers
-                A[i] = new int(random());
+                A[i] = new int(random()); //Fill master array
             }
             for (int i = 0; i < X[k]; ++i) { //Copy over
-                B[i] = new int(*A[i]);
+                B[i] = new int(*A[i]); //Fill slave array
             }
-            start = clock();
-            Sorting::insertionSort(B, X[k]);
-            endTime = clock();
-            cpu_time_used += ((double) (endTime - start)) / CLOCKS_PER_SEC;
+            start = clock(); //Starts the timer
+            Sorting::insertionSort(B, X[k]); //Sorts the array
+            endTime = clock(); //Ends the timer
+            cpu_time_used += ((double) (endTime - start)) / CLOCKS_PER_SEC; //Calculates time in seconds.
 
 
         }
